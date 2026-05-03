@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+
+<body style="margin:0; background:transparent; overflow:hidden; -webkit-app-region: drag;" onclick="backToMain()">
+    <div id="c">
+        <div id="t">00:00:00</div>
+        <div id="d">MINGGU</div>
+    </div>
+    <style>
+        #c {
+            width: 160px;
+            height: 160px;
+            background: rgba(43, 76, 94, 0.9);
+            border: 3px solid #88c0d0;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(136, 192, 208, 0.4);
+            -webkit-app-region: drag;
+           
+        }
+
+        #t {
+            font-size: 26px;
+            font-weight: bold;
+            font-variant-numeric: tabular-nums;
+            -webkit-app-region: no-drag;
+        }
+
+        #d {
+            font-size: 11px;
+            color: #88c0d0;
+            margin-top: 5px;
+            font-weight: bold;
+            -webkit-app-region: no-drag;
+        }
+    </style>
+    <script>
+        const { ipcRenderer } = require('electron');
+        const days = ["MINGGU", "SENIN", "SELASA", "RABU", "KAMIS", "JUMAT", "SABTU"];
+
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('t').innerText = now.toLocaleTimeString('en-GB');
+            document.getElementById('day').innerText = days[now.getDay()]; 
+            document.getElementById('d').innerText = days[now.getDay()];
+        }, 1000);
+
+      
+        function backToMain() {
+            ipcRenderer.send('show-main-window');
+        }
+    </script>
+</body>
+
+</html>
